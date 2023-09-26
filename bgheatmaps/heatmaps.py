@@ -53,6 +53,7 @@ class heatmap:
         values: Dict[str, float],
         position: Union[list, tuple, np.ndarray],
         orientation: Union[str, tuple] = "frontal",
+        hemisphere: str = "both",
         title: Optional[str] = None,
         cmap: str = "Reds",
         vmin: Optional[float] = None,
@@ -88,7 +89,7 @@ class heatmap:
         self.prepare_colors(values, cmap, vmin, vmax)
 
         # add regions to the brainrender scene
-        self.scene.add_brain_region(*self.values.keys())
+        self.scene.add_brain_region(*self.values.keys(), hemisphere=hemisphere)
 
         self.regions_meshes = [
             r
