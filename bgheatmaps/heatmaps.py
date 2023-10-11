@@ -12,6 +12,7 @@ from brainrender import settings, cameras
 from brainrender.atlas import Atlas
 
 from bgheatmaps.slicer import Slicer
+from bgheatmaps.scene2d import Scene2D
 
 # Set settings for heatmap visualization
 settings.SHOW_AXES = False
@@ -78,12 +79,18 @@ class heatmap:
         self.label_regions = label_regions
 
         # create a scene
-        self.scene = Scene(
-            atlas_name=atlas_name,
-            title=title,
-            title_color=grey_darker,
-            **kwargs,
-        )
+        if format == "3D":
+            self.scene = Scene(
+                atlas_name=atlas_name,
+                title=title,
+                title_color=grey_darker,
+                **kwargs,
+            )
+        else:
+            self.scene = Scene2D(
+                atlas_name=atlas_name,
+                **kwargs,
+            )
 
         # prep colors range
         self.prepare_colors(values, cmap, vmin, vmax)
